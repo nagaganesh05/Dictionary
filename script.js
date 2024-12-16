@@ -90,6 +90,8 @@ async function searching(data) {
             const speechWord = result[0].word;
             sppechText(speechWord)
         })
+
+        console.log(result)
     } catch (error) {
         console.log(error)
     }
