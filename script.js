@@ -26,23 +26,25 @@ selectOptions.addEventListener("change", (e) => {
 });
 
 search.addEventListener("click", () => {
-    if (inputEl.value !== "") {
-        searching(inputEl.value);
-        inputEl.style.border="";
-        inputEl.value = "";
+    const query = inputEl.value.trim();
+    if (query) {
+        inputEl.style.border = "";
+        fetchWordData(query);
     } else {
-        inputEl.style.border = "1px solid black";
+        inputEl.style.border = "2px solid red";
+        inputEl.placeholder = "Please enter a word!";
     }
-})
+});
 
 async function searching(data) {
     try {
         const api_data = await fetch(Api + data);
+        if (!api_data.ok) throw new Error('Word not found');
         const result = await api_data.json();
 
         const html = `<div class="sections">
-                      <h2>${result[0].word}</h2>
-                      <p>/${result[0].phonetic}</p>
+                      <h2>${result[0]?.word}</h2>
+                      <p>/${result[0]?.phonetic}</p>
                       </div >
                       <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewbox="0 0 75 75"
                       class="playBtn"
@@ -55,18 +57,18 @@ async function searching(data) {
         disContainer.innerHTML = html;
         partofSpeech.textContent = result[0].meanings[0].partOfSpeech;
 
-        const li = `<li>
-                  ${result[0].meanings[0].definitions[0].definition}
-                   </li>
-                   <li>
-                  ${result[0].meanings[0].definitions[1].definition}
-                   </li>
-                   <li>
-                  ${result[0].meanings[0].definitions[2].definition}
-                   </li>
-                   ` ;
+       
+        let definitions = result[0]?.meanings?.[0]?.definitions;
 
-        ulEl.innerHTML = li;
+        if (definitions && definitions.length > 0) {
+            const li = definitions.map(definition => `
+        <li>${definition.definition}</li>
+    `).join("");
+            ulEl.innerHTML = li;
+        } else {
+            ulEl.innerHTML = '<p>No definitions available for this word.</p>'; // Fallback for no definitions
+        }
+
 
         const sys = result[0].meanings[0].synonyms;
         sysEl.textContent = "";
@@ -74,39 +76,52 @@ async function searching(data) {
             sysEl.textContent += sys[i] + " ";
         }
 
-        let partofSpeech2 = ` <div class="verbContent">
-                             <h3>${result[0].meanings[1].partOfSpeech}</h3>
-                             <p>meaning</p>
-                             <ul class="meanings">
-                             <li>${result[0].meanings[1].definitions[0].definition}</li>
-                             </ul>
-                             </div>`
+        if (result[0]?.meanings?.[1]) {
+            let partofSpeech2 = `
+                <div class="verbContent">
+                    <h3>${result[0].meanings[1].partOfSpeech}</h3>
+                    <p>Meaning:</p>
+                    <ul class="meanings">
+                        <li>${result[0].meanings[1].definitions?.[0]?.definition || "Definition not available"}</li>
+                    </ul>
+                </div>`;
 
-        verbEl.innerHTML = partofSpeech2;
+            verbEl.innerHTML = partofSpeech2;
+        } else {
+            verbEl.innerHTML = `
+                <p style="color: red; font-size: 1.2rem;">
+                    No meanings found for this word.
+                </p>`;
+        }
+
 
         const playBtn = document.querySelector('.playBtn')
 
-        playBtn.addEventListener("click",()=>{
+        playBtn.addEventListener("click", () => {
             const speechWord = result[0].word;
             sppechText(speechWord)
         })
 
         console.log(result)
     } catch (error) {
+        disContainer.innerHTML = `<p style="color: red; font-size: 1.2rem;">Word not found. Please try again.</p>`;
         console.log(error)
     }
 }
 
-form.addEventListener("submit",(e)=>{
+form.addEventListener("submit", (e) => {
     e.preventDefault();
     searching(inputEl.value);
     inputEl.value = "";
 })
 
-function sppechText (textSpeech){
+function sppechText(textSpeech) {
     let speechText = new SpeechSynthesisUtterance();
     speechText.text = textSpeech;
     speechText.voice = window.speechSynthesis.getVoices()[0];
     window.speechSynthesis.speak(speechText);
 }
+
+
+
 

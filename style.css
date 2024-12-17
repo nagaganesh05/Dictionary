@@ -154,13 +154,15 @@ header form img{
 .noun h3::after,.verb h3::after{
     position: absolute;
     content: "";
-    width: 92%;
+    width: 85%;
     height: 2px;
     background-color: #fff;
     top: 15px;
     bottom: 0;
     right: 0;
 }
+
+
 
 .noun > p,.verb p{
     color: #B8001F;
@@ -240,7 +242,7 @@ ul li::before{
     .noun h3::after,.verb h3::after{
         position: absolute;
         content: "";
-        width: 90%;
+        width: 75%;
         height: 2px;
         background-color: #fff;
         top: 15px;
@@ -249,11 +251,11 @@ ul li::before{
     }
 }
 
-@media (max-width:425px){
+@media (max-width:576px){
     .noun h3::after,.verb h3::after{
         position: absolute;
         content: "";
-        width: 80%;
+        width: 70%;
         height: 2px;
         background-color: #fff;
         top: 15px;
@@ -262,7 +264,20 @@ ul li::before{
     }
 }
 
-@media screen and (max-width:1199px) {
-    
-    
+/* @media screen and (max-width: 1199px) {
+    .dictionary-content {
+        flex-direction: column;
+        align-items: center;
+    }
+} */
+
+
+@media screen and (min-width: 1280px) {
+    .dictionary-content {
+        gap: 2rem;
+    }
+    header form input {
+        font-size: 1.5rem;
+    }
 }
+
