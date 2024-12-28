@@ -1,3 +1,11 @@
+body{
+  /* background-image: url("https://media.istockphoto.com/id/1412921381/photo/search-find-web-online-technology-internet-website-concept.webp?a=1&b=1&s=612x612&w=0&k=20&c=9dO1NI-J6Z-sBfBeaCMTQQ7bEtmjkfR3r_k4QezyMcc=");
+  background-repeat: no-repeat;
+  background-size: cover; */
+  background-color: #E4E0E1 1.0;
+}
+
+
 #form {
     border: 1px solid black;
     width: fit-content;
@@ -11,15 +19,34 @@
   #submit {
     width: 200px;
     color: #000;
-    background-color: #7AB2D3;
+    background-color: #37AFE1 ;
     height: 28px;
 
     &:hover {
-      background-color: #0D92F4;
-      color: #fff;
+      background-color: #4CC9FE;
+      color: #000;
     }
   }
 
   form input {
     width: 200px;
+    height: 20px;
+  }
+
+  form label{
+    font-weight: bolder;
+  }
+
+  a{
+    text-decoration: none;
+    color: #000;
+  }
+
+  .btn{
+    width: 200px;
+    height: 30px;
+    background-color: #37AFE1;
+    &:hover{
+      background-color: #4CC9FE;
+    }
   }

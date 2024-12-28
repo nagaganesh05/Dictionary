@@ -16,6 +16,7 @@ form.addEventListener("submit", (e) => {
         break;
       } else {
         alert("Invalid username or password")
+        break;
       }
     }
   }

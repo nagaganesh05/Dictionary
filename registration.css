@@ -29,13 +29,13 @@ form label{
 }
 #submit{
     color: #fff;
-    background-color: rgb(40, 129, 224);
+    background-color: #37AFE1;
     width: 200px;
     height: 35px;
     text-align: center;
+    &:hover{
+        background-color: #4CC9FE;
+        color: #000;
+    }
 
-}
-select {
-    width: 210px;
-    height: 30px;
 }
