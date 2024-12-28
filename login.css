@@ -1,0 +1,25 @@
+#form {
+    border: 1px solid black;
+    width: fit-content;
+    margin: auto;
+    padding: 20px 50px;
+    box-shadow: 2px 2px 2px #333;
+    border-radius: 5px;
+    margin-top: 80px;
+  }
+
+  #submit {
+    width: 200px;
+    color: #000;
+    background-color: #7AB2D3;
+    height: 28px;
+
+    &:hover {
+      background-color: #0D92F4;
+      color: #fff;
+    }
+  }
+
+  form input {
+    width: 200px;
+  }

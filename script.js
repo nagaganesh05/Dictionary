@@ -6,13 +6,22 @@ const selectOptions = document.querySelector('.data select');
 const search = document.querySelector('.search');
 const inputEl = document.querySelector('form input');
 
+
+const section = document.querySelector("#article")
+section.classList.add("hidden")
+section.classList.remove("hidden")
+
 const disContainer = document.querySelector('.dictionary-content')
+disContainer.classList.add("hidden");
+disContainer.classList.remove("hidden");
+
 
 const partofSpeech = document.querySelector('.partofspeechNoun');
 const ulEl = document.querySelector('.meanings');
 const sysEl = document.querySelector('.syn');
 const verbEl = document.querySelector('.verb');
 const form = document.querySelector('form');
+
 
 const Api = "https://api.dictionaryapi.dev/api/v2/entries/en/"
 
@@ -39,8 +48,13 @@ search.addEventListener("click", () => {
 async function searching(data) {
     try {
         const api_data = await fetch(Api + data);
-        if (!api_data.ok) throw new Error('Word not found');
+        if (!api_data.ok) {
+            throw new Error('Word not found');
+        }
         const result = await api_data.json();
+        // disContainer.classList.remove("hidden");
+        section.classList.remove("hidden")
+
 
         const html = `<div class="sections">
                       <h2>${result[0]?.word}</h2>
@@ -57,7 +71,7 @@ async function searching(data) {
         disContainer.innerHTML = html;
         partofSpeech.textContent = result[0].meanings[0].partOfSpeech;
 
-       
+
         let definitions = result[0]?.meanings?.[0]?.definitions;
 
         if (definitions && definitions.length > 0) {
@@ -103,9 +117,20 @@ async function searching(data) {
         })
 
         console.log(result)
+        const err = document.querySelector(".err")
+        err.textContent=""
     } catch (error) {
-        disContainer.innerHTML = `<p style="color: red; font-size: 1.2rem;">Word not found. Please try again.</p>`;
-        console.log(error)
+        // section.innerHTML = `<p style="color: red; font-size: 1.2rem;">Word not found. Please try again.</p>`;
+        // // disContainer.classList.add("hidden");
+        // section.classList.remove("hidden")
+        section.classList.add("hidden")
+        const err = document.querySelector(".err")
+
+
+        // err.innerHTML=error.wordnotfound;
+        // console.log(error.message)
+        err.textContent = error.message
+        
     }
 }
 

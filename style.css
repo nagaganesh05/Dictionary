@@ -124,6 +124,21 @@ header form img{
     justify-content: space-between;
 }
 
+.hidden{
+    display: none;
+}
+
+.err{
+    max-width: 1080px;
+    width: 100%;
+    overflow: hidden;
+    padding: 0 2rem;
+    margin: 0 auto;
+    color: #B8001F;
+    font-weight: bolder;
+    font-size: 30px;
+}
+
 .sections h2{
     font-size: 3rem;
     margin-bottom: 1rem;
